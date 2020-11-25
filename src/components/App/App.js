@@ -14,7 +14,6 @@ const App = () => {
   }
 
   useEffect(() => {
-    console.debug("App did mounted")
     checkIsApiAvailable()
       .then(r => setApiAvailable(r.ok))
       .catch(() => setApiAvailable(false))

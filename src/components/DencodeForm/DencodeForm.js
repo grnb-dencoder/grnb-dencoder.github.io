@@ -4,6 +4,7 @@ import {Button, Col, Form, Row} from "react-bootstrap";
 import Dropdown from "react-bootstrap/Dropdown";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import {BsFileText, BsLockFill, BsUnlockFill} from "react-icons/bs";
+import Container from "react-bootstrap/Container";
 
 const DencodeForm = (props) => {
 
@@ -15,8 +16,10 @@ const DencodeForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    setLoading(true)
+
     if (secret && message) {
+      setLoading(true)
+
       fetch(uri, {
         method: 'post',
         mode: "cors",
@@ -38,79 +41,80 @@ const DencodeForm = (props) => {
   }
 
   const handleClickOnResultTextarea = ({target}) => {
-    console.debug(target.value)
     target.select()
     document.execCommand('copy');
   }
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Row>
-        <Col>
-          <Form.Group controlId="exampleForm.ControlTextarea1">
-            <Form.Label className="w-100">
-              <h4>
-                <BsFileText/> Place your message here
-              </h4>
-            </Form.Label>
-            <Form.Control as="textarea"
-                          rows={20}
-                          value={message}
-                          onChange={(e) => setMessage(e.target.value)}
-                          maxLength={maxLength}
-            />
-          </Form.Group>
-        </Col>
-        <Col>
-          <Form.Group controlId="exampleForm.ControlTextarea2">
-            <Form.Label className="w-100">
-              <h4>
-                <BsFileText/> Result
-              </h4>
-            </Form.Label>
-            <Form.Control as="textarea"
-                          rows={20}
-                          value={response}
-                          onClick={handleClickOnResultTextarea}
-                          readOnly
-            />
-          </Form.Group>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <Form.Control
-            required
-            size="lg"
-            value={secret}
-            onChange={(e) => setSecret(e.target.value)}
-            placeholder="Enter secret"/>
-        </Col>
-        <Col>
-          <Dropdown as={ButtonGroup}
-                    className="w-100">
-            <Button className="w-75"
-                    size="lg"
-                    type="submit"
-                    disabled={isLoading}
-                    variant="success"
-            >
-              {isLoading ? 'Loading...' : submitButtonLabel}
-            </Button>
+      <Container fluid className="pt-3 pb-3">
+        <Row>
+          <Col sm={12} md={6}>
+            <Form.Group controlId="exampleForm.ControlTextarea1">
+              <Form.Label className="w-100">
+                <h2>
+                  Initial message
+                </h2>
+              </Form.Label>
+              <Form.Control as="textarea"
+                            rows={16}
+                            value={message}
+                            onChange={(e) => setMessage(e.target.value)}
+                            maxLength={maxLength}
+              />
+            </Form.Group>
+          </Col>
+          <Col sm={12} md={6}>
+            <Form.Group controlId="exampleForm.ControlTextarea2">
+              <Form.Label className="w-100">
+                <h2>
+                  Result message
+                </h2>
+              </Form.Label>
+              <Form.Control as="textarea"
+                            rows={16}
+                            value={response}
+                            onClick={handleClickOnResultTextarea}
+                            readOnly
+              />
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row>
+          <Col sm={12} md={6} className="mb-3">
+            <Form.Control
+              required
+              size="lg"
+              value={secret}
+              onChange={(e) => setSecret(e.target.value)}
+              placeholder="Enter secret phrase"/>
+          </Col>
+          <Col sm={12} md={6}>
+            <Dropdown as={ButtonGroup}
+                      className="w-100">
+              <Button className="w-75"
+                      size="lg"
+                      type="submit"
+                      disabled={isLoading}
+                      variant="success"
+              >
+                {isLoading ? 'Loading...' : submitButtonLabel}
+              </Button>
 
-            <Dropdown.Toggle split variant="success" id="dropdown-split-basic"/>
+              <Dropdown.Toggle split variant="success" id="dropdown-split-basic"/>
 
-            <Dropdown.Menu>
-              <Dropdown.Item onClick={() => setShouldDecodeMessage(false)}>
-                <BsLockFill/> Encode message
-              </Dropdown.Item>
-              <Dropdown.Item onClick={() => setShouldDecodeMessage(true)}>
-                <BsUnlockFill/> Decode message
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </Col>
-      </Row>
+              <Dropdown.Menu>
+                <Dropdown.Item onClick={() => setShouldDecodeMessage(false)}>
+                  <BsLockFill/> Encode message
+                </Dropdown.Item>
+                <Dropdown.Item onClick={() => setShouldDecodeMessage(true)}>
+                  <BsUnlockFill/> Decode message
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </Col>
+        </Row>
+      </Container>
     </Form>
   )
 }

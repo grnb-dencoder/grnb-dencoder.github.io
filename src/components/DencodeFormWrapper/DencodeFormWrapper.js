@@ -1,17 +1,12 @@
 import React, {useState} from "react";
 import './DencodeFormWrapper.css'
 import PropTypes from 'prop-types'
-import {FormCheck} from "react-bootstrap";
 import DencodeForm from "../DencodeForm";
 
 const DencodeFormWrapper = (props) => {
 
   const {apiBase} = props
   const [shouldDecodeMessage, setShouldDecodeMessage] = useState(false)
-
-  const handleSwitch = ({target}) => {
-    setShouldDecodeMessage(target.checked)
-  }
 
   const getDencodeFormUrl = () => {
     return apiBase + (shouldDecodeMessage ? '/api/decode' : '/api/encode')
