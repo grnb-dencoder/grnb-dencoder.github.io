@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import {Button, Col, Form, Row} from "react-bootstrap";
 import Dropdown from "react-bootstrap/Dropdown";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
-import {BsFileText, BsLockFill, BsUnlockFill} from "react-icons/bs";
+import {BsLockFill} from "react-icons/bs";
 import Container from "react-bootstrap/Container";
+import {BsUnlockFill} from "react-icons/all";
 
 const DencodeForm = (props) => {
 
@@ -87,7 +88,7 @@ const DencodeForm = (props) => {
               size="lg"
               value={secret}
               onChange={(e) => setSecret(e.target.value)}
-              placeholder="Enter secret phrase"/>
+              placeholder="Enter a secret phrase"/>
           </Col>
           <Col sm={12} md={6}>
             <Dropdown as={ButtonGroup}
@@ -96,12 +97,14 @@ const DencodeForm = (props) => {
                       size="lg"
                       type="submit"
                       disabled={isLoading}
-                      variant="success"
+                      variant="info"
               >
                 {isLoading ? 'Loading...' : submitButtonLabel}
               </Button>
 
-              <Dropdown.Toggle split variant="success" id="dropdown-split-basic"/>
+              <Dropdown.Toggle style={{maxWidth: '3rem'}}
+                               split
+                               variant="info"/>
 
               <Dropdown.Menu>
                 <Dropdown.Item onClick={() => setShouldDecodeMessage(false)}>
