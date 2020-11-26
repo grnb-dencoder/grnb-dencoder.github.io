@@ -6,4 +6,4 @@ const _withMode = (dev, prod) => {
   }
 }
 
-export const API_BASE = process.env.REACT_APP_API_BASE || _withMode(() => process.env.REACT_APP_API_BASE_DEVELOPMENT, process.env.REACT_APP_API_BASE_PRODUCTION)
+export const API_BASE = process.env.REACT_APP_API_BASE || _withMode(() => process.env.REACT_APP_API_BASE_DEVELOPMENT, () => process.env.REACT_APP_API_BASE_PRODUCTION)
