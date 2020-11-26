@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {API_BASE} from "../../config/ApiConfig";
+import Loader from 'react-loaders';
 import DencodeFormWrapper from "../DencodeFormWrapper";
-import Loader from "../Loader";
 
 const App = () => {
 
@@ -32,8 +32,8 @@ const App = () => {
             :
             (
               <>
-              <Loader/>
-              <h1>Initializing the application...</h1>
+                <Loader type="line-scale-pulse-out" active/>
+                <h4>Initializing the application...</h4>
               </>
             )
         }
